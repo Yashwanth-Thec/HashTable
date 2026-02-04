@@ -1,0 +1,82 @@
+#include<iostream>
+#include<ctring>
+#include<ctime>
+#include<fstream>
+#include<cstdlib>
+
+using namespace std;
+
+struct Student{
+  char first[100]
+  char last[100]
+  int id;
+  float gpa;
+  Student* next;
+}
+
+ main(){
+  if (strcmp(command, "ADD") == 0){
+    cout << "First Name: ";
+    cin >> first;
+
+    cout <<"Last Name: ";
+    cin >> last;
+
+    cout << "ID: ";
+    cin >> id;
+
+    cout<<"GPA: ";
+    cin>> gpa;
+
+    Student* s = new Student(first, last, id, gpa);
+    Node* newNode = new Node(s, nullptr);
+
+    add(head, newNode);
+
+  }
+
+  else if(strcmp(command, "PRINT") ==0){
+
+    if(head == nullptr){
+      cout << "List is empty.";
+
+    }
+    else{
+      print(head);
+    }
+	    
+  }
+  else if(strcmp(command, "DELETE") == 0){
+    if (head ==  nullptr){
+      cout << "List is empty.";
+    }
+    else {
+      ind id;
+      cout << "Enter the student ID to delete: ";
+      cind >> id;
+
+      remove(head, id);
+    }
+
+  }
+
+  else if(strcmp(command, "AVERAGE") == 0){
+    if (head == nullptr) {
+	cout << "List is empty";
+      }
+      else {
+	float sum = 0.0f;
+	int count = 0;
+
+	average(had, sum, count);
+
+	cout << fixed << setprecision(2);
+	cout << "Average GPA: " << (sum/count) << endl;
+      }
+
+  }
+
+
+
+
+}
