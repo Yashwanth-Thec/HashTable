@@ -56,11 +56,27 @@ int main(){
       Student* s = new Student(first, last, id, gpa);
       Node* newNode = new Node(s, nullptr);
 
-      add(head, newNode);
+      unsigned int idx = hashID(id, tableSize);
+
+      while(chainLength(table[idx]) >=3){
+	rehash(table, tableSize, tableSize*2);
+	idx =hashID(id, tableSize);
+      }
+
+      add(table[idx], n);
+      cout << "Student added." << endl;
 
     }
 
+    
+    
     else if(strcmp(command, "PRINT") ==0){
+
+      bool empty = true;
+      for (int i= 0; i < tableSize; i++){
+	if(table[i] != nullptr){
+
+	}
 
       if(head == nullptr){
 	cout << "List is empty.";
@@ -71,6 +87,9 @@ int main(){
       }
 	    
     }
+
+
+
     else if(strcmp(command, "DELETE") == 0){
       if (head ==  nullptr){
 	cout << "List is empty.";
