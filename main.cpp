@@ -119,9 +119,38 @@ int main(){
       }
 
     }
+    else if(strcmp(command, "GENERATE") == 0) {
+      int howMany;
+      cout << "How many students do you want to generate: ";
+      cin >> howMany;
+
+      generateStudents(table, tableSize,firstCount, firstArr, lastCount, lastArr,nextGeneratedID, howMany );
+    }
+
+    else if(strcmp(command, "QUIT") == 0) {
+      for(int i = 0; i < tableSize; i++) {
+	if(table[i] != nullptr){
+	  quit(table[i]);
+
+	}
+
+      }
+
+      delete table[];
+      freeNames(firstArr, firstCount);
+      freeNames(lastArr, lastCount);
+
+      running(false);
+
+
+    }
+    else{
+      cout << "Invalid input";
+    }
+
   }
 
-
+    return 0;
 
 
 }
