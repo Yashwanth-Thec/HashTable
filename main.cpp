@@ -154,3 +154,145 @@ int main(){
 
 
 }
+
+unsigned int hasId(int id, int tableSize){
+  unsigned int x = (unsigned int)id;
+  unsigned int h = x * 2654435761u;
+  return (unsigned int)(h%(unsigned int)tableSize);
+
+}
+
+Node** makeTable(int size){
+  Node** t = new Node*[size];
+  for (int i = 0; i <size; i++) t[i] = nullptr;
+  return t;
+}
+void rehash(Node**& table, int& tableSize, int newSize) {
+  Node** newTable = makeTable(newSize);
+
+  for (int i =0; i < tableSize; i++) {
+    Node* cur = table[i];
+    while (cur != nullptr){
+      Node* nxt = cur->get_next();
+      cur->set_next(nullptr);
+
+      int id = cur->get_value()->getID();
+      unsigned int idx = hashID(id, newSize);
+
+      add(newTable[idx], cur);
+      cur = nxt;
+
+    }
+    table[i] = nullptr;
+
+  }
+  delete table[];
+  table = newTable;
+  tableSize = newSize;
+
+  cout << "This has been Rehashed. The new table size is " << tableSize << endl;
+}
+
+ void freeTable(Node**& table, int& tableSize){
+   if (!table) return;
+   for (int i = 0; i < tableSize; i++){
+     if table[i] != nullptr) quit(table[i]);
+   }
+   delete[] table;
+   table =nullptr;
+   tableSize = 0;
+ 
+
+}
+
+bool loadNames(const char* filename, char** outArr,  int& outCount){
+  ifstram fin(filename);
+  if(!fin) return false;
+
+  chat line[250];
+  outCount = 0;
+
+  while (fin.getline(line, 250)){
+    if(strlen(line) > 0) outCount++;
+
+  }
+  fin.clear();
+  fin.seekg(0);
+
+  if (outCount == 0) reutrn false;
+
+  char** arr new char*[outCount];
+}
+
+// This is the recursion for adding
+void add(Node*& head, Node* newNode) {
+  if (head == nullptr || newNode->get_value()->getID() < head->get_value()->getID()) {
+      newNode->set_next(head);
+      head = newNode;
+      return;
+  }
+
+  Node* nextNode = head->get_next();
+  add(nextNode, newNode);
+  head->set_next(nextNode);
+}
+
+
+
+
+//Recursion for printing
+void print(Node* head) {
+  if (head == nullptr) return;
+
+  Student* s = head->get_value();
+  cout << s->getFirst() << " " << s->getLast()
+       << ", " << s->getID() << ", "
+       << fixed << setprecision(2) << s->getGPA() << endl;
+
+  print(head->get_next());
+}
+
+void remove(Node*& head, int id) {
+  if (head == nullptr) {
+      cout << "ID not found.\n";
+      return;
+  }
+
+  if (head->get_value()->getID() == id) {
+      Node* temp = head;
+      head = head->get_next();
+
+      delete temp->get_value(); // This deletes the Student
+      delete temp;              // This deletes Node by calling destructor
+
+      cout << "Deleted.\n";
+      return;
+  }
+
+  Node* nextNode = head->get_next();
+  remove(nextNode, id);
+  head->set_next(nextNode);
+}
+//This is the recursion for Average
+void average(Node* head, float& sum, int& count) {
+  if (head == nullptr) return;
+
+  sum += head->get_value()->getGPA();
+  count++;
+
+  average(head->get_next(), sum, count);
+}
+
+//This is the recursion for Quiting
+void quit(Node*& head) {
+  if (head == nullptr) return;
+
+  Node* nextNode = head->get_next();
+
+  delete head->get_value();
+  delete head;
+  head = nullptr;
+
+  quit(nextNode);
+}
+
