@@ -237,6 +237,52 @@ void add(Node*& head, Node* newNode) {
   head->set_next(nextNode);
 }
 
+void freeNames(char** arr, int count){
+  if(!arr) return;
+  for (int i = 0; i <count; i++) {
+    delete[] arr[i];
+  }
+
+}
+
+float randomGPA() {
+  int x = rand() % 401;
+  return (float)x / 100.0f
+    }
+void generateStudents(table, tableSize,firstCount, firstArr, lastCount, lastArr,nextGeneratedID, howMany ){
+
+  if (how many <= 0) {
+    cout << "Nothing Generated." << endl;
+    return;
+  }
+  for (int i =0; i < howMany; i++){
+    const char* first = firstArr[rand() % firstCount];
+    const char* last  = lastArr[rand() % lastCount];
+    int id = nextID++;
+    float gpa = randomGPA();
+    Student* s = new Student((char*)first, (char*)last, id, gpa);
+    Node* n = new Node(s, nullptr);
+
+    unsigned int idx = hashID(id, tableSize);
+
+    while (chainLength(table[idx]) >= 3) {
+      rehash(table, tableSize, tableSize * 2);
+      idx = hashID(id, tableSize);
+    }
+    add(table[idx], n);
+  }
+  count << "Generated and added" << howmany << " students." << endl;
+
+
+}
+
+  
+
+
+      
+
+
+}
 
 
 
